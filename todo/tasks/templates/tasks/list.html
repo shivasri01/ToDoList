@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+    body
+    {
+        background-image: url("https://image.shutterstock.com/z/stock-photo-old-newspaper-background-yellow-vintage-grunge-paper-texture-1590016897.jpg");
+        
+        font-family: 'Pattaya';
+        font-size: 30px;
+        
+        
+        
+    }
+
+    
+    
+    
+    
+    input::placeholder{
+        color:aquamarine
+    }
+      
+      .item-row{
+		
+		margin: 10px;
+		padding: 20px;
+		border-radius: 3px;
+		color: #000;
+		font-size: 26px;
+        box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+        float:center;
+        
+    }
+    .header {
+        
+        font-size: 75%;
+        color: red;
+        text-align: center;
+        padding:15px;
+      }
+
+	
+
+</style>
+<div class="header" class="container">
+    <h1>To Do List</h1>
+  </div>
+<div class="container">
+            
+            <form method="POST" action="/">
+                {%csrf_token%}
+                {{form.title}}
+                
+                
+                <input type="submit" name="Create Task">
+            </form>
+        
+
+
+
+    {% for task in tasks %}
+        <div class="container">
+            <div class="item-row">
+                    <span class ="glyphicon glyphicon-pencil"></span><a href="{% url 'update_task' task.id %}"> Edit</a>
+                    
+                
+                    <span class ="glyphicon glyphicon-trash"></span><a href="{% url 'delete' task.id %}"> Delete </a>
+                    {% if task.complete == True %}
+                    <p>&#10004 {{task}}</p>
+                    {% else %}
+                    <br>
+                    <p> Created On: {{task.created.day}}/{{task.created.month}}</p>
+                    <span>&#10148{{task}}</span>
+                    {% endif %}
+            </div>
+            
+        </div>
+
+    {% endfor %}
+</div>
